@@ -27,7 +27,7 @@ class MemberService
     public function getUserInfo($params)
     {
         $data = $this->userModel->queryByMobileOne($params['mobile']);
-        
+    
         if (!isset($data)){
             return Result(403,'用户不存在!');
         }
