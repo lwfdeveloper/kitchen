@@ -21,18 +21,3 @@ Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
     Route::post('/user/weixin_login','UserController@weixLogin');
 });
 
-//Route::middleware(['first', 'second'])->group(function () {
-//    Route::get('/', function () {
-//        // 使用 first 和 second 中间件
-//    });
-//
-//    Route::get('user/profile', function () {
-//        // 使用 first 和 second 中间件
-//    });
-//});
-
-//Route::group([
-//    'middleware' => 'token',
-//], function ($router) {
-//    Route::post('/user', 'UserController@index');
-//});

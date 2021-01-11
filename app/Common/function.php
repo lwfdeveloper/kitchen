@@ -35,12 +35,6 @@ function getConfigAppid($type = 'scf_mp')
                 'secret' => 'bb3e6fae72d175ff1c8859e9074f97a8'
             ];
             break;
-        case 'sgt_mp': //膳贡堂小程序
-            $data = [
-                'appid' => 'wx6351f8b0b53f587e',
-                'secret' => 'a7347b296d0e35733885e08e67a52c0a'
-            ];
-            break;
         case 'sg_mp': //膳贡小程序
             $data = [
                 'appid' => 'wxb01e696b3cabe4f8',
