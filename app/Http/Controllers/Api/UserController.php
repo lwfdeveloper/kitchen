@@ -49,8 +49,9 @@ class UserController extends Controller
 
     }
 
+
     /**
-     * 用户登录
+     * 用户手机号码登录
      * @return mixed
      */
     public function login()
@@ -60,8 +61,29 @@ class UserController extends Controller
             'mobile' => 'required|string',
             'code' => 'required|integer',
         ];
-       $this->apiCheckParams($params, $rule);
+        $this->apiCheckParams($params, $rule);
         $result = $this->memberService->getUserInfo($params);
+        return Result(200,'success',$result);
+    }
+
+
+    /**
+     * 微信用户一键登录　
+     * @param string $code
+     * @param string $iv
+     * @param string $encrypted_data
+     * @return mixed
+     */
+    public function weixLogin()
+    {
+        $params = $this->request->only(['code', 'iv','encrypted_data']);
+        $rule = [
+            'code' => 'required|string',
+            'iv' => 'required|string',
+            'encrypted_data' => 'required|string',
+        ];
+        $this->apiCheckParams($params, $rule);
+        $result = $this->memberService->weixinLogin($params);
         return Result(200,'success',$result);
     }
 }

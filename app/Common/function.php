@@ -17,7 +17,7 @@ function Result($code ,$msg ,$data = [])
         'msg' => $msg,
         'data' => $data
     ];
-    return response()->json($reuslt);
+    return response()->json($reuslt)->setEncodingOptions(JSON_UNESCAPED_UNICODE);
 }
 
 /**

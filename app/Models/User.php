@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     protected $table = 'member';
+    protected $password = '123456';
 
     /**
      * 根据id获取用户信息
@@ -18,13 +19,38 @@ class User extends Authenticatable
      */
     public function queryByMobileOne($mobile)
     {
-        $user = DB::table('member')->select('id','mobile','realname','openid','weixinname','weixinface','referee_id','integral')->where('mobile', $mobile)->first();
+        $user = DB::table('member')->select('id as user_id','mobile','openid')->where('mobile', $mobile)->first();
         return $user;
     }
-    //将密码进行加密
-    public function setPasswordAttribute($value)
+
+    /**
+     * 根据手机号码新增用户
+     * @param string $mobile
+     * @param string $openid
+     * return id int
+     */
+    public function insertUser(string $mobile,string $openid)
     {
-        $this->attributes['password'] = bcrypt($value);
+        $id = DB::table('member')->insertGetId([
+            'mobile' => $mobile,
+            'openid' => $openid,
+            'password' => md5($this->password),
+            'created_time' => date('Y-m-d H:i:s')
+        ]);
+        return $id;
     }
+
+
+    /**
+     * 根据用户id更新openid
+     * @param $id
+     * @param $openid
+     */
+    public function updateUserOpenid($id,string $openid)
+    {
+        $row = DB::table('member')->where('id',$id)->update(['openid' => $openid]);
+        return $row;
+    }
+
 
 }
