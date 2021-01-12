@@ -27,7 +27,7 @@ class ChargeController extends Controller
     {
         $params = $this->request->only(['user_id', 'money','openid']);
         $rule = [
-            'money' => 'required|string',
+            'money' => 'required|integer',
             'user_id' => 'required|integer',
             'openid' => 'required|string'
         ];

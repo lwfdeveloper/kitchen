@@ -19,9 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
     Route::post('/users','UserController@index');
     Route::post('/user/weixin_login','UserController@weixLogin');
+    Route::post('/user/get_openid','UserController@getOpenId');
     Route::get('/user/vip_card_list','UserController@vipCardList');
     Route::post('/menu/list','MenuController@getList');
-    Route::post('/charge/vip_charge','ChargeController@rechargeVip');
+    Route::post('/charge/vip','ChargeController@rechargeVip');
 
 
 });

@@ -31,7 +31,13 @@ class ChargeService
             //验证充值的金额
             $list = $this->vipCardModel->queryByList();
             if (isset($list)){
-                $vipMoenyList = array_column($list,'money');
+                $eqList = array_map(function ($item){
+                    $item->money =  $item->money * 100;
+                    return $item;
+                },$list);
+                $vipMoenyList = array_column($eqList,'money');
+            }else{
+                return Result(0,'暂无启用的充值会员卡!');
             }
             if (!in_array($params['money'],$vipMoenyList)){
                 return Result(0,'充值金额有误!');

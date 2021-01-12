@@ -100,4 +100,16 @@ class MemberService
         $this->response = $list;
         return  $this->response;
     }
+
+
+    /**
+     * 获取openid
+     * @param array $params
+     */
+    public function getUserOpenId(array $params)
+    {
+        $result = $this->weixinToken->getSessionKey($params['code']);
+        unset($result['session_key']);
+        return $result;
+    }
 }

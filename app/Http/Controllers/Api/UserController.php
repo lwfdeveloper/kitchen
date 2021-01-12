@@ -89,6 +89,21 @@ class UserController extends Controller
 
 
     /**
+     * 获取微信用户openid
+     * @return mixed
+     */
+    public function getOpenId()
+    {
+        $params = $this->request->only(['code']);
+        $rule = [
+            'code' => 'required|string',
+        ];
+        $this->apiCheckParams($params, $rule);
+        $result = $this->memberService->getUserOpenId($params);
+        return Result(200,'success',$result);
+    }
+
+    /**
      * 获取vip充值卡
      * return void
      */
