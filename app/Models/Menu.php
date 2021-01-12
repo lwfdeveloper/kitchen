@@ -10,7 +10,7 @@ class Menu
     const STATUS_SUCCESS = 0; //显示
 
     /**
-     * 根据id获取用户信息
+     * 获取食谱分类数据
      * @return array
      */
     public function queryByList()
