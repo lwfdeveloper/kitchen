@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
     Route::post('/users','UserController@index');
     Route::post('/user/weixin_login','UserController@weixLogin');
+    Route::post('/menu/list','MenuController@getList');
 });
 
