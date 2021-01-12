@@ -13,8 +13,19 @@ class User extends Authenticatable
     protected $password = '123456';
 
     /**
-     * 根据id获取用户信息
+     * 根据用户id获取信息
      * @param $id
+     * @return array
+     */
+    public function queryByIdOne($id)
+    {
+        $user = DB::table('member')->select('id as user_id','mobile','openid')->where('id', $id)->first();
+        return $user;
+    }
+
+    /**
+     * 根据手机号码获取用户信息
+     * @param $mobile
      * @return array
      */
     public function queryByMobileOne($mobile)

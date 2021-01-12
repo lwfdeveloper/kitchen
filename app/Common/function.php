@@ -21,6 +21,27 @@ function Result($code ,$msg ,$data = [])
 }
 
 /**
+ * 微信支付配置
+ * @param string $type
+ * @return array
+ */
+function getWeiXinPayConfig($type = 'scf_mp')
+{
+    $data = [];
+    switch ($type){
+        case 'scf_mp': //膳厨房小程序
+            $data = [
+                'appid' => env('WeiXinAppid',''),
+                'key' => env('WeiXinPayKey',''),
+                'mch_id' => env('WeiXinMchId','')
+            ];
+            break;
+    }
+    return $data;
+}
+
+
+/**
  * 获取微信平台Appid & Secret
  * @param string $type
  * @return string[]
@@ -62,6 +83,14 @@ function GetOrderNo($uid){
     return $uid . '-' . date('Ymd') . str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
 }
 
+/**
+ * 生成微信trade_no
+ * @return string
+ */
+function getWeixinTradeNo()
+{
+    return rand(000000, 999999) . date('YmdHisu') . rand(000000, 999999);
+}
 
 /**
  * 手机号中间四位星号处理

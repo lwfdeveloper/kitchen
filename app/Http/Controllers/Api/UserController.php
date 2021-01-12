@@ -86,4 +86,15 @@ class UserController extends Controller
         $result = $this->memberService->weixinLogin($params);
         return Result(200,'success',$result);
     }
+
+
+    /**
+     * 获取vip充值卡
+     * return void
+     */
+    public function vipCardList()
+    {
+        $result = $this->memberService->getVipCardList();
+        return Result(200,'success',$result);
+    }
 }

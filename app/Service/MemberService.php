@@ -2,20 +2,23 @@
 
 namespace App\Service;
 
-use App\Models\User;
+use App\Models\{User,VipCard};
 use Illuminate\Support\Facades\Redis;
 use App\Lib\WeiXin\WeixinToken;
 use App\Service\JwtAuth;
+use App\Service\MenuService;
 
 class MemberService
 {
     protected $userModel;
+    protected $vipCardModel;
     protected $weixinToken;
     protected $response = [];
 
-    public function __construct(User $userModel,WeixinToken $weixinToken)
+    public function __construct(User $userModel,VipCard $vipCardModel,WeixinToken $weixinToken)
     {
         $this->userModel = $userModel;
+        $this->vipCardModel = $vipCardModel;
         $this->weixinToken = $weixinToken;
     }
 
@@ -83,5 +86,18 @@ class MemberService
         return $this->response;
     }
 
-
+    /**
+     * 获取vip充值卡列表
+     * @return mixed
+     */
+    public function getVipCardList()
+    {
+        $list = $this->vipCardModel->queryByList();
+        foreach ($list as $k => $value){
+            $value->url = MenuService::imgPath .$value->url;
+            $value->id == 1 ? $value->active = true : $value->active = false;
+        }
+        $this->response = $list;
+        return  $this->response;
+    }
 }
