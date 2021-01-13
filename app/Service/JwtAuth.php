@@ -16,6 +16,7 @@ class JwtAuth
     protected static $key = '8CuHaG5jXRL7lu1eStiueb57aWMJpajnrzoe4vBF4Ebnfg396EoIXu6j2mE8dZkV';
     protected static $url = 'https://scf-api.mymealwell.cn';
     protected static $jwtId = '2mE8dZkV';
+    
     /**
      * 配置秘钥加密
      * @return Configuration
@@ -35,7 +36,6 @@ class JwtAuth
     public static function createToken($user_id)
     {
         $config = self::getConfig();
-//        assert($config instanceof Configuration);
 
         $now = new DateTimeImmutable();
 
@@ -50,7 +50,7 @@ class JwtAuth
             ->issuedAt($now)
             // 在1分钟后才可使用
             //->canOnlyBeUsedAfter($now->modify('+1 minute'))
-            // 过期时间1小时
+            // 过期时间2小时
             ->expiresAt($now->modify('+2 hour'))
             // 自定义uid 额外参数
             ->withClaim('user_id', $user_id)
@@ -88,14 +88,14 @@ class JwtAuth
         $jwtId = $token->getClaim('jti');
 //        var_dump($token->claims());die;
         if (!isset($jwtId) || $jwtId != self::$jwtId){
-            return resultFail(401,'tokenId有误或不存在!');
+            return Result(401,'tokenId有误或不存在!');
         }
         $expTime = $token->getClaim('exp');
         if ($expTime <= $stampTime){
-            return resultFail(403,'token已过期!');
+            return Result(403,'token已过期!');
         }
         $user_id = $token->getClaim('user_id');
-        return resultSuccess('success',[
+        return Result(200,'success',[
             'user_id' => $user_id
         ]);
     }
@@ -112,7 +112,7 @@ class JwtAuth
         var_dump($token->claim());die;
         $jwtId = $token->getClaim('jti');
         if (!isset($jwtId)){
-            return resultFail(401,'tokenId 不存在!');
+            return Result(401,'tokenId 不存在!');
         }
 //        assert($token instanceof Plain);
 

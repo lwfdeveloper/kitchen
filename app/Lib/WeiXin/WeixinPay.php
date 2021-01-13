@@ -92,6 +92,18 @@ class WeixinPay implements PayInterface
     }
 
     /**
+     * 签名验证
+     * @param $arr
+     */
+    public function Sign($arr)
+    {
+        unset($arr['sign']);
+        ksort($arr);
+        $query = urldecode(http_build_query($arr)) . '&key=' . $this->option['key'];
+        return strtoupper(md5($query));
+    }
+
+    /**
      * 获取客户端真实IP地址
      * @return array|false|string
      */
