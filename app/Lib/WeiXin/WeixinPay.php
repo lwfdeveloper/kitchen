@@ -14,7 +14,7 @@ class WeixinPay implements PayInterface
         'key' => '',
         'mch_id' => ""
     ];
-    protected $callbackUrl = 'http://scf-api.mymealwell.cn/v1/charge/charge_callback/target/scf_mp';
+    protected $callbackUrl = 'http://scf-api.mymealwell.cn/api/v1/charge/charge_callback';
 
     public function __construct($type = 'scf_mp')
     {

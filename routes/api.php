@@ -37,5 +37,8 @@ Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
     /** 微信小程序支付回调 */
     Route::post('/charge/weixin_callback','ChargeController@chargeCallback');
 
+    /** 生成小程序码*/
+    Route::post('/weixin/create_qrcode','WeixinController@createQrcode');
+
 });
 
