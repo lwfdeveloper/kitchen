@@ -6,9 +6,9 @@ use \OSS\OssClient;
 
 class AliOss
 {
-    public static $key = 'LTAI4GDTf53HYVLJ21R3ffTZ';
-    public static $secret = 'imich2e3X8S5q3oOumOUyvWEGzH9dW';
-    public static $ossUrl = 'http://oss-cn-shanghai.aliyuncs.com';
+    public static $key = '';
+    public static $secret = '';
+    public static $ossUrl = '';
     /**
      * 保存小程序码图片到阿里云OSS上
      **/
