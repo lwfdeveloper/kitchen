@@ -52,20 +52,20 @@ function getConfigAppid($type = 'scf_mp')
     switch ($type){
         case 'scf_mp': //膳厨房小程序
             $data = [
-                'appid' => 'wxdd1535c31092332e',
-                'secret' => 'bb3e6fae72d175ff1c8859e9074f97a8'
+                'appid' => env('WeiXinAppid',''),
+                'secret' => env('WeiXinSECRET','')
             ];
             break;
         case 'sg_mp': //膳贡小程序
             $data = [
-                'appid' => 'wxb01e696b3cabe4f8',
-                'secret' => '4c20ed47c3e5d2781f85ce89fb304a86'
+                'appid' => env('SGAPPID',''),
+                'secret' => env('SGSECRET','')
             ];
             break;
         case 'sg_gzh': //膳贡公众号
             $data = [
-                'appid' => 'wx0fee413044f79b1f',
-                'secret' => '377571af400a72f3cd24e86430f7e6e3'
+                'appid' => env('SGGZHAPPID',''),
+                'secret' => env('SGGZHSECRET','')
             ];
             break;
     }
