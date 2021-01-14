@@ -3,16 +3,31 @@
 namespace App\Service\AdminService;
 
 use Illuminate\Support\Facades\Redis;
-use App\Models\Admin\{AdminUserModel,AdminRoleMenuRelationModel};
+use App\Models\Admin\AdminRoleModel;
 
 class AdminRoleService
 {
-
-    public function __construct()
+    protected $adminRoleModel;
+    public function __construct(AdminRoleModel $adminRoleModel)
     {
-
+        $this->adminRoleModel = $adminRoleModel;
     }
 
+    /**
+     * 获取角色列表
+     * @param array $params
+     */
+    public function getRoleList(array $params)
+    {
+        $data = $this->adminRoleModel->queryByList();
+
+        $result = [
+            'data' => $data['data'] ?? [],
+            'total' => $data['total'] ?? 0
+        ];
+
+        return $result;
+    }
 
 
 

@@ -11,7 +11,7 @@ class UserController extends Controller
      * 用户service层
      * @var $adminUserService
      */
-    protected $memberService;
+    protected $adminUserService;
 
     public function __construct(AdminUserService $adminUserService)
     {
