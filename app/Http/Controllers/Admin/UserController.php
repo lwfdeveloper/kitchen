@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
+use App\Service\AdminService\AdminUserService;
 
 class UserController extends Controller
 {
     /**
      * 用户service层
-     * @var $memberService
+     * @var $adminUserService
      */
     protected $memberService;
 
-//    public function __construct(MemberService $memberService)
-//    {
-//        parent::__construct();
-//        $this->memberService = $memberService;
-//    }
+    public function __construct(AdminUserService $adminUserService)
+    {
+        parent::__construct();
+        $this->adminUserService = $adminUserService;
+    }
 
     /**
      * 管理员用户登录
@@ -25,10 +25,13 @@ class UserController extends Controller
      */
     public function userLogin()
     {
-        $result = [
-            'id' => 1,
-            'msg' => '测试admin路由'
+        $params = $this->request->only(['account', 'password']);
+        $rule = [
+            'account' => 'required|string',
+            'password' => 'required|string',
         ];
-        return Result(200,'success',$result);
+        $this->apiCheckParams($params, $rule);
+        $result = $this->adminUserService->userLogin($params);
+        return Result(200,'登录成功',$result);
     }
 }

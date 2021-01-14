@@ -110,3 +110,26 @@ function getUserName($user_name)
     $lastStr     = mb_substr($user_name, -1, 1, 'utf-8');
     return $strlen == 2 ? $firstStr . str_repeat('*', mb_strlen($user_name, 'utf-8') - 1) : $firstStr . str_repeat("*", $strlen - 2) . $lastStr;
 }
+
+
+/**
+ * [getTreeMenuData 递归后台菜单树形结构]
+ * @param  [type]  $item      [description]
+ * @param  integer $parent_id [description]
+ * @param  string  $sub       [description]
+ * @param  integer $level     [description]
+ * @return [type]             [description]
+ */
+function getTreeMenuData($item = [], $key_id = '', $parent_id = 0, $sub = 'children', $level = 0)
+{
+    $data = [];
+    foreach ($item as $key => $val) {
+        if ($val->parent_id == $parent_id) {
+            $val->level = $level;
+            $arr = getTreeMenuData($item, $key_id, $val->menu_id ? $val->menu_id : $val[$key_id], $sub, $level + 1);
+            $val->children = count($arr) ? $arr : '';
+            $data[] = $val;
+        }
+    }
+    return $data;
+}
