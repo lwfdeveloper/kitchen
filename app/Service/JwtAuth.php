@@ -16,6 +16,9 @@ class JwtAuth
     protected static $key = '8CuHaG5jXRL7lu1eStiueb57aWMJpajnrzoe4vBF4Ebnfg396EoIXu6j2mE8dZkV';
     protected static $url = 'https://scf-api.mymealwell.cn';
     protected static $jwtId = '2mE8dZkV';
+    public static $authSuccess=200;
+    public static $authOverdue=403; //token过期
+    public static $authVerifyError=401; //jwtToken签发tokenId验证不通过
     
     /**
      * 配置秘钥加密
@@ -82,22 +85,24 @@ class JwtAuth
      */
     public static function validateToken(string $token)
     {
-        $stampTime = time();
-        $config = self::getConfig();
-        $token = $config->parser()->parse($token);
-        $jwtId = $token->getClaim('jti');
+        try {
+            $stampTime = time();
+            $config = self::getConfig();
+            $token = $config->parser()->parse($token);
+            $jwtId = $token->getClaim('jti');
 //        var_dump($token->claims());die;
-        if (!isset($jwtId) || $jwtId != self::$jwtId){
-            return Result(401,'tokenId有误或不存在!');
+            if (!isset($jwtId) || $jwtId != self::$jwtId){
+                return self::$authVerifyError;
+            }
+            $expTime = $token->getClaim('exp');
+            if ($expTime <= $stampTime){
+                return self::$authOverdue;
+            }
+//        $user_id = $token->getClaim('user_id');
+            return self::$authSuccess;
+        }catch (\Exception $e){
+            return self::$authVerifyError;
         }
-        $expTime = $token->getClaim('exp');
-        if ($expTime <= $stampTime){
-            return Result(403,'token已过期!');
-        }
-        $user_id = $token->getClaim('user_id');
-        return Result(200,'success',[
-            'user_id' => $user_id
-        ]);
     }
 
     /**

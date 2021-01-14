@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
     /** 测试 */
-    Route::post('/users','UserController@index');
+    Route::post('/users','UserController@index')->middleware('api.auth');
 
     /** 微信小程序一键登录获取手机号码 */
     Route::post('/user/weixin_login','UserController@weixLogin');
