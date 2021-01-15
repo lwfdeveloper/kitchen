@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\RabbitMQ\Work::class
+        Commands\RabbitMQ\Work::class,
+        Commands\Swoole\Task::class,
         //
     ];
 
