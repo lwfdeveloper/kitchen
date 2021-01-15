@@ -19,7 +19,7 @@ class AdminRoleService
      */
     public function getRoleList(array $params)
     {
-        $data = $this->adminRoleModel->queryByList();
+        $data = $this->adminRoleModel->queryByList($params);
 
         $result = [
             'data' => $data['data'] ?? [],

@@ -25,9 +25,10 @@ class RoleController extends Controller
      */
     public function getRoleList()
     {
-        $params = $this->request->only(['page']);
+        $params = $this->request->only(['page','role_name']);
         $rule = [
             'page' => 'required|numeric|min:1|not_in:0',
+            'role_name' => 'string'
         ];
         $this->apiCheckParams($params, $rule);
         $result = $this->adminRoleService->getRoleList($params);
