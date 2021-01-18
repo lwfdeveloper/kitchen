@@ -50,15 +50,10 @@ class Task extends Command
      */
     public static $paramsCode = 400;
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
+   
     public function __construct()
     {
         parent::__construct();
-//        $this->service = new Server($this->host, $this->port);
     }
 
 
@@ -72,6 +67,10 @@ class Task extends Command
         return $this->init();
     }
 
+    /**
+     * 初始化server
+     * return void
+     */
     private function init()
     {
         $this->service = new Server($this->host,$this->port);
@@ -86,6 +85,12 @@ class Task extends Command
         $this->service->start();
     }
 
+    /**
+     * 任务请求接受
+     * @param $request
+     * @param $response
+     * @return mixed
+     */
     public function onRequest($request, $response)
     {
         if(strpos($request->server['request_uri'],'.ico') !== false){
@@ -100,6 +105,14 @@ class Task extends Command
         }
     }
 
+
+    /**
+     * 处理任务
+     * @param \Swoole\Server $server
+     * @param $task_id
+     * @param $from_id
+     * @param $data
+     */
     public function onTask(\Swoole\Server $server, $task_id, $from_id, $data)
     {
         echo "异步任务Data处理中:".json_encode($data).PHP_EOL;
@@ -107,6 +120,14 @@ class Task extends Command
         $server->finish($data);
     }
 
+
+    /**
+     * task进程任务处理结束回调，可选
+     * @param \Swoole\Server $server
+     * @param $task_id
+     * @param $data
+     * @return mixed
+     */
     public function onFinish(\Swoole\Server $server, $task_id, $data)
     {
         echo "异步任务结束,数据:".json_encode($data).PHP_EOL;

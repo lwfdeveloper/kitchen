@@ -63,5 +63,34 @@ class AdminUserService
     }
 
 
+    /**
+     * 统计注册人数
+     * @param array $params
+     */
+    public function getUserStatistics(array $params)
+    {
+        if(isset($params['status'])){
+            if(!in_array($params['status'],['1','2'])){
+                return Result(0,'status参数有误!');
+            }
+        }
+        if(isset($params['month'])){
+            $month = $params['month'];
+            if($month > 12 ){
+                return Result(0,'月份参数有误!');
+            }
+        }
 
+        if (!empty($params['status'])){
+            if ($params['status'] == 1){
+                $date = date('Y-m-d',strtotime('-7 day'));
+            }else{
+                $date = date('Y-m-d',strtotime('-15 day'));
+            }
+            $params['date'] = $date ?? false;
+        }
+
+        $data = $this->adminUserModel->queryByCountRegister($params ,$date);
+        return $data;
+    }
 }
