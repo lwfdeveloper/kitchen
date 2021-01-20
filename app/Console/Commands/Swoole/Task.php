@@ -4,9 +4,53 @@ namespace App\Console\Commands\Swoole;
 
 use Illuminate\Console\Command;
 use \Swoole\Http\Server;
+use \Swoole\Coroutine as Go;
+use Faker\Factory;
+
+use \Swoole\Database\PDOConfig;
+use \Swoole\Database\PDOPool;
+use \Swoole\Runtime;
 
 class Task extends Command
 {
+
+    public function demo()
+    {
+        Runtime::enableCoroutine();
+        // 记录时间
+        $s = microtime(true);
+        $fackerLib = $this->facker;
+        Go\run(function ()use($fackerLib){
+            $pool = new PDOPool((new PDOConfig)
+                ->withHost('106.15.230.238')
+                ->withPort(3306)
+                ->withDbName('hyperf')
+                ->withCharset('utf8mb4')
+                ->withUsername('shangong')
+                ->withPassword('fengyi123.')
+            );
+
+            for ($n = 1024; $n--;) {
+                Go::create(function () use ($pool,$fackerLib) {
+                    $pdo = $pool->get();
+                    for ($i = 10000; $i--;) {
+                        $statement = $pdo->prepare('INSERT INTO `hyperf`.`test_search`(`name`, `age`) VALUES (?, ?)');
+                        if (!$statement) {
+                            throw new RuntimeException('Prepare failed');
+                        }
+                        $result = $statement->execute([$fackerLib->name,rand(1,90)]);
+                        if (!$result) {
+                            throw new RuntimeException('Execute failed');
+                        }
+                    }
+                    $pool->put($pdo);
+                });
+            }
+
+        });
+        $s = microtime(true) - $s;
+        echo 'Use ' . $s . ' queries' . PHP_EOL;
+    }
     /**
      * The name and signature of the console command.
      *
@@ -50,10 +94,13 @@ class Task extends Command
      */
     public static $paramsCode = 400;
 
+
+    private $facker;
    
     public function __construct()
     {
         parent::__construct();
+        $this->facker = Factory::create('zh_CN');
     }
 
 
@@ -66,6 +113,7 @@ class Task extends Command
     {
         return $this->init();
     }
+
 
     /**
      * 初始化server
