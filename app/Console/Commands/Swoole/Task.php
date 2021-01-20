@@ -5,11 +5,10 @@ namespace App\Console\Commands\Swoole;
 use Illuminate\Console\Command;
 use \Swoole\Http\Server;
 use \Swoole\Coroutine as Go;
-use Faker\Factory;
-
 use \Swoole\Database\PDOConfig;
 use \Swoole\Database\PDOPool;
 use \Swoole\Runtime;
+use Faker\Factory;
 
 class Task extends Command
 {
@@ -164,7 +163,7 @@ class Task extends Command
     public function onTask(\Swoole\Server $server, $task_id, $from_id, $data)
     {
         echo "异步任务Data处理中:".json_encode($data).PHP_EOL;
-        sleep(2);
+        sleep(5);
         $server->finish($data);
     }
 

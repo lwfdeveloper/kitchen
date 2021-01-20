@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Redis;
+
 /**
  * 公共返回成功函数 用于构建返回信息
  *
@@ -132,4 +135,27 @@ function getTreeMenuData($item = [], $key_id = '', $parent_id = 0, $sub = 'child
         }
     }
     return $data;
+}
+
+
+/**
+ * redis锁
+ * @param $cacheKey
+ * @param $cacheKeyTimeout  上锁时间
+ * @param int $keyMaxTimes  最大上锁次数
+ */
+function redisLock($cacheKey , $cacheKeyTimeout = 3 , $keyMaxTimes = 0)
+{
+    $intRet = Redis::incr($cacheKey);
+    if($intRet === 1){
+        Redis::expire($cacheKey,$cacheKeyTimeout);
+        return true;
+    }
+    /**
+     * 当设置了最大加锁次数时，如果尝试加锁次数大于最大加锁次数并且无过期时间则强制解锁
+    */
+    if($keyMaxTimes > 0 && $intRet >= $keyMaxTimes && Redis::ttl($cacheKey) === -1) {
+        Redis::del($cacheKey);
+    }
+    return false;
 }

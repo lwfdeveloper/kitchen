@@ -107,6 +107,7 @@ class JwtAuth
 
     /**
      * 验证令牌
+     * 弃用
      */
     public static function validationToken(string $token)
     {
