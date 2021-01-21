@@ -49,7 +49,7 @@ class MemberService
         $data = $this->weixinToken->getSessionKey($code);
         $session_key = $data['session_key'];
         $openid = $data['openid'];
-        $errCode = $this->weixinToken->decryptData('scf_mp',$session_key,$params['encrypted_data'],$params['iv'],$weixData);
+        $errCode = $this->weixinToken->decryptData('sgt_mp',$session_key,$params['encrypted_data'],$params['iv'],$weixData);
 
         if ($errCode != 0){
             return Result($errCode,'手机号码获取失败，请重试!');

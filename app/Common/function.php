@@ -28,7 +28,7 @@ function Result($code ,$msg ,$data = [])
  * @param string $type
  * @return array
  */
-function getWeiXinPayConfig($type = 'scf_mp')
+function getWeiXinPayConfig($type = 'sgt_mp')
 {
     $data = [];
     switch ($type){
@@ -37,6 +37,13 @@ function getWeiXinPayConfig($type = 'scf_mp')
                 'appid' => env('WeiXinAppid',''),
                 'key' => env('WeiXinPayKey',''),
                 'mch_id' => env('WeiXinMchId','')
+            ];
+            break;
+        case 'sgt_mp': //膳贡堂小程序
+            $data = [
+                'appid' => env('SGTAPPID',''),
+                'key' => env('WeixinSgtPAyKey',''),
+                'mch_id' => env('WeixinSgtMchId','')
             ];
             break;
     }
@@ -49,7 +56,7 @@ function getWeiXinPayConfig($type = 'scf_mp')
  * @param string $type
  * @return string[]
  */
-function getConfigAppid($type = 'scf_mp')
+function getConfigAppid($type = 'sgt_mp')
 {
     $data = [];
     switch ($type){
@@ -69,6 +76,12 @@ function getConfigAppid($type = 'scf_mp')
             $data = [
                 'appid' => env('SGGZHAPPID',''),
                 'secret' => env('SGGZHSECRET','')
+            ];
+            break;
+        case 'sgt_mp': //膳贡堂
+            $data = [
+                'appid' => env('SGTAPPID',''),
+                'secret' => env('SGTSECRET','')
             ];
             break;
     }

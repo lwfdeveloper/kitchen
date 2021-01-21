@@ -50,6 +50,7 @@ class Task extends Command
         $s = microtime(true) - $s;
         echo 'Use ' . $s . ' queries' . PHP_EOL;
     }
+    
     /**
      * The name and signature of the console command.
      *

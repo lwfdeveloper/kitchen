@@ -52,7 +52,7 @@ class WeixinService
         $imageSrc= $path."/". $imageName; //完整图片名字
         $result = file_put_contents($imageSrc,$wx_code);
         $aliOss = new AliOss;
-        $result = $aliOss::SaveWeixinQrcodeFile($imageSrc,'sft_mp',$params['user_id'] );
+        $result = $aliOss::SaveWeixinQrcodeFile($imageSrc,'sgt_mp',$params['user_id'] );
         unlink($imageSrc);
 
         return $result;

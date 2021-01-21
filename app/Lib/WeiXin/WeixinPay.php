@@ -16,7 +16,7 @@ class WeixinPay implements PayInterface
     ];
     protected $callbackUrl = '';
 
-    public function __construct($type = 'scf_mp')
+    public function __construct($type = 'sgt_mp')
     {
         $payConfig = getWeiXinPayConfig($type);
         $this->option['appid'] = $payConfig['appid'];

@@ -25,7 +25,7 @@ class WeixinToken implements TokenInterface
      * 获取微信access token
      * @return string
      */
-    public function getToken($type = 'scf_mp')
+    public function getToken($type = 'sgt_mp')
     {
         $appidData = getConfigAppid($type);
         $appid = $appidData['appid'];
@@ -69,7 +69,7 @@ class WeixinToken implements TokenInterface
      * 获取微信sessionKey以及openId
      * @param string $code
      */
-    public function getSessionKey($code = '',$type = 'scf_mp')
+    public function getSessionKey($code = '',$type = 'sgt_mp')
     {
         if (empty($code)) return Result(0,'code不存在!');
         $appidData = getConfigAppid($type);
@@ -104,7 +104,7 @@ class WeixinToken implements TokenInterface
      *
      * @return int 成功0，失败返回对应的错误码
      */
-    public function decryptData($type = 'scf_mp', $sessionKey,$encryptedData, $iv, &$data )
+    public function decryptData($type = 'sgt_mp', $sessionKey,$encryptedData, $iv, &$data )
     {
         $appidData = getConfigAppid($type);
         $this->appid = $appidData['appid'];
