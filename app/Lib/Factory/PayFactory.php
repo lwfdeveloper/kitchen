@@ -5,7 +5,7 @@ use App\Lib\WeiXin\WeixinPay;
 
 class PayFactory
 {
-    public static function factory($payType,$config = 'scf_mp')
+    public static function factory($payType,$config = 'sgt_mp')
     {
         switch ($payType) {
             case 'weixin':

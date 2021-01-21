@@ -21,6 +21,9 @@ Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
     /** 测试异步处理service */
     Route::post('/users','UserController@index');
 
+    /** 发送短信验证码 **/
+    Route::post('/sendsms','SmsController@sendSms');
+
     /** 微信小程序一键登录获取手机号码 */
     Route::post('/user/weixin_login','UserController@weixLogin');
 
