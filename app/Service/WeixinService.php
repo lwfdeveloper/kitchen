@@ -23,6 +23,7 @@ class WeixinService
      */
     public function createWeixinQrcode(array $params)
     {
+
         $user = $this->userModel->queryByIdOne($params['user_id']);
 
         if (!isset($user)){

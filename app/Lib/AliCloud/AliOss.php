@@ -6,9 +6,18 @@ use \OSS\OssClient;
 
 class AliOss
 {
-    public static $key = '';
-    public static $secret = '';
-    public static $ossUrl = '';
+    protected static $key = '';
+    protected static $secret = '';
+    protected static $ossUrl = '';
+
+    public function __construct()
+    {
+        $config = getAliOSSConfig('ali');
+        self::$key = $config['key'];
+        self::$secret = $config['secret'];
+        self::$ossUrl = $config['ossUrl'];
+    }
+
     /**
      * 保存小程序码图片到阿里云OSS上
      **/

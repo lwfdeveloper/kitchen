@@ -39,17 +39,19 @@ class Work extends Command implements RabbitmqInterface
      * @var array
      */
     private $amqpExType = [
-        'direct'  =>  AMQP_EX_TYPE_DIRECT, //直连交换机
-        'fanout'  =>  AMQP_EX_TYPE_FANOUT, //扇形交换机
-        'headers' => AMQP_EX_TYPE_HEADERS, //头交换机
-        'topic'   => AMQP_EX_TYPE_TOPIC //主题交换机
+		'direct' => ''
+        // 'direct'  =>  AMQP_EX_TYPE_DIRECT, //直连交换机
+        // 'fanout'  =>  AMQP_EX_TYPE_FANOUT, //扇形交换机
+        // 'headers' => AMQP_EX_TYPE_HEADERS, //头交换机
+        // 'topic'   => AMQP_EX_TYPE_TOPIC //主题交换机
     ];
 
 
     /**
      * @var int
      */
-    protected $durable = AMQP_DURABLE;
+    protected $durable = '';
+//    protected $durable = AMQP_DURABLE;
 
 
 

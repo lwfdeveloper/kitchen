@@ -21,12 +21,12 @@ class Task extends Command
         $fackerLib = $this->facker;
         Go\run(function ()use($fackerLib){
             $pool = new PDOPool((new PDOConfig)
-                ->withHost('106.15.230.238')
+                ->withHost('127.0.0.1')
                 ->withPort(3306)
                 ->withDbName('hyperf')
                 ->withCharset('utf8mb4')
-                ->withUsername('shangong')
-                ->withPassword('fengyi123.')
+                ->withUsername('')
+                ->withPassword('')
             );
 
             for ($n = 1024; $n--;) {
@@ -50,7 +50,7 @@ class Task extends Command
         $s = microtime(true) - $s;
         echo 'Use ' . $s . ' queries' . PHP_EOL;
     }
-    
+
     /**
      * The name and signature of the console command.
      *
@@ -96,7 +96,7 @@ class Task extends Command
 
 
     private $facker;
-   
+
     public function __construct()
     {
         parent::__construct();

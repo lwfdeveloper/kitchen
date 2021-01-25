@@ -89,6 +89,24 @@ function getConfigAppid($type = 'sgt_mp')
 }
 
 /**
+ * 获取阿里云OSS配置
+ */
+function getAliOSSConfig($type = 'ali')
+{
+    $data = [];
+    switch ($type){
+        case 'ali':
+            $data = [
+                'key' => env('AliSMSACCESSKEY',''),
+                'secret' => env('AliSMSSECRET',''),
+                'ossUrl' => env('AliSMSCODETYPE','')
+            ];
+            break;
+    }
+    return $data;
+}
+
+/**
  * 唯一订单号生成方法
  * @return string
  */

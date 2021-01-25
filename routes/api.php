@@ -19,7 +19,7 @@ Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
     /** 测试 */
 //    Route::post('/users','UserController@index')->middleware('api.auth');
     /** 测试异步处理service */
-    Route::post('/users','UserController@index');
+    Route::get('/users','UserController@index');
 
     /** 发送短信验证码 **/
     Route::post('/sendsms','SmsController@sendSms');
