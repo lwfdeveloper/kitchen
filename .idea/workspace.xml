@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd43c9f7-4240-4b8c-90fe-f2c079c81e83" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Lib/WeiXin/WeixinToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Lib/WeiXin/WeixinToken.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,11 +180,17 @@
       <updated>1611290835094</updated>
       <workItem from="1611290836155" duration="3514000" />
       <workItem from="1611544428993" duration="10534000" />
-      <workItem from="1611631541550" duration="2637000" />
+      <workItem from="1611631541550" duration="10452000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="634" y="292" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1611647161131">
+      <screen x="0" y="23" width="1792" height="1015" />
+    </state>
+    <state x="634" y="292" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1792.23.1920.1057/0.23.1792.1015@0.23.1792.1015" timestamp="1611647161131" />
   </component>
 </project>

@@ -45,5 +45,9 @@ Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
     /** 生成小程序码*/
     Route::post('/weixin/create_qrcode','WeixinController@createQrcode');
 
+    Route::group(['prefix'=>'common'],function(){
+        Route::get('/region','CommonController@getRegionInfo');
+    });
+
 });
 
