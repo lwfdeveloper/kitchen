@@ -37,7 +37,7 @@ class WeixinToken implements TokenInterface
                 'secret' => $secret
             ]);
             $access = json_decode($body, true);
-            Redis::set('weixin_access' . $type, $access['access_token'], 120);
+            Redis::setex('weixin_access' . $type,  120,$access['access_token']);
             return Redis::get('weixin_access' . $type);
         } else {
             return Redis::get('weixin_access' . $type);
@@ -57,7 +57,7 @@ class WeixinToken implements TokenInterface
                 'type' => 'jsapi'
             ]);
             $access = json_decode($body, true);
-            Redis::set('weixin_jsticket' . $type, $access['ticket'], 7100);
+            Redis::setex('weixin_jsticket' . $type, 7100,$access['ticket']);
             return Redis::get('weixin_jsticket' . $type);
         } else {
             return Redis::get('weixin_jsticket' . $type);
