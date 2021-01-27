@@ -43,8 +43,7 @@ class MemberService
 
     /**
      * 验证用户是否已注册
-     * @param string $mobile
-     * @param string $openid
+     * @param array $params
      * return void
      */
     public function checkUser(array $params)
@@ -67,7 +66,7 @@ class MemberService
             ];
         }else{
             //已注册若openid不匹配则更新最新的openid
-            if ($openid != $user->weixinopenid){
+            if (!empty($openid) && $openid != $user->weixinopenid){
                $this->userModel->updateUserOpenid($user->user_id,$openid);
                $user->weixinopenid = $openid;
             }
