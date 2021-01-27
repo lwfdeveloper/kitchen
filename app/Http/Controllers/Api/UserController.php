@@ -41,25 +41,36 @@ class UserController extends Controller
      */
     public function login()
     {
-        $params = $this->request->only(['code', 'mobile']);
+        $params = $this->request->only(['smscode', 'mobile','realname']);
         $rule = [
-            'mobile' => 'required|string',
-            'code' => 'required|integer',
+            'mobile' => 'required|string|mobile',
+            'smscode' => 'required|integer',
+            'realname' => 'required|string'
         ];
         $this->apiCheckParams($params, $rule);
-        $result = $this->memberService->getUserInfo($params);
+
+        if(strlen($params['realname']) < 2 || is_numeric($params['realname']) ){
+            return Result(0,'请填写正确的用户名!');
+        }
+
+        $params['weixinunionid'] = $this->request->input('weixinunionid','');
+        $params['weixinopenid'] = $this->request->input('weixinopenid','');
+        $params['referee_id'] = $this->request->input('referee_id',0);
+        $params['weixinface'] = $this->request->input('weixinface','');
+        $params['weixinname'] = $this->request->input('weixinnickname','');
+        $result = $this->memberService->checkUser($params);
         return Result(200,'success',$result);
     }
 
 
     /**
-     * 微信用户一键登录　
+     * 微信用户一键登录(微信获取手机号码，暂时不用)
      * @param string $code
      * @param string $iv
      * @param string $encrypted_data
      * @return mixed
      */
-    public function weixLogin()
+    public function weixLoginNew()
     {
         $params = $this->request->only(['code', 'iv','encrypted_data']);
         $rule = [
@@ -68,7 +79,7 @@ class UserController extends Controller
             'encrypted_data' => 'required|string',
         ];
         $this->apiCheckParams($params, $rule);
-        $result = $this->memberService->weixinLogin($params);
+        $result = $this->memberService->weixLoginNew($params);
         return Result(200,'success',$result);
     }
 

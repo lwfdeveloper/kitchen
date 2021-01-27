@@ -1,35 +1,29 @@
 <?php
 
 use Illuminate\Http\Request;
-/*
+/**
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
-|
 */
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
-    /** 测试 */
-//    Route::post('/users','UserController@index')->middleware('api.auth');
-    /** 测试异步处理service */
-    Route::get('/users','UserController@index');
 
-    /** 发送短信验证码 **/
-    Route::post('/sendsms','SmsController@sendSms');
+    /** 测试 */
+    Route::get('/users','UserController@index');
 
     /** 微信小程序食谱分类列表 */
     Route::post('/menu/list','MenuController@getList');
 
-    /** 生成小程序码*/
-    Route::post('/weixin/create_qrcode','WeixinController@createQrcode');
-
+    /**================================华丽的分割线=====================================*/
+    /** 发送短信验证码 **/
+    Route::post('/sendsms','SmsController@sendSms');
 
     /** 公共接口部分 */
     Route::group(['prefix'=>'common'],function(){
@@ -41,6 +35,9 @@ Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
     /** 用户模块接口 */
     Route::group(['prefix'=>'user'],function(){
 
+        /** 用户登录 */
+        Route::post('/login','UserController@login');
+
         /** 获取微信用户openid */
         Route::post('/get_openid','UserController@getOpenId');
 
@@ -49,6 +46,13 @@ Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
 
         /** vip卡列表 */
         Route::get('/vip_card_list','UserController@vipCardList')->middleware('api.auth');
+    });
+
+
+    /** 微信相关接口部分 */
+    Route::group(['prefix'=>'weixin'],function(){
+        /** 生成小程序码*/
+        Route::post('/create_qrcode','WeixinController@createQrcode')->middleware('api.auth');
     });
 
 

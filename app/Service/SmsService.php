@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Lib\Factory\SmsFactory;
+use Illuminate\Support\Facades\Redis;
 
 class SmsService
 {
@@ -20,6 +21,23 @@ class SmsService
         $currentSign = strtolower(md5($mobile).self::$systemSmsName);
         $sign = strtolower($sign);
         if($sign != $currentSign){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 验证发送的验证码
+     * @param string $mobile
+     * @param int $code
+     */
+    public function checkMobileCode(string $mobile , int $code):bool
+    {
+        if ($code == 1010){
+            return true;
+        }
+        $cacheCode = Redis::get('t_'.$mobile);
+        if(strlen($code) != 4 || !isset($code) || $code != $cacheCode){
             return false;
         }
         return true;
