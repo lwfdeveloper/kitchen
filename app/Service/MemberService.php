@@ -105,6 +105,41 @@ class MemberService
         return $result;
     }
 
+    /**
+     * 微信登录
+     * @param array $params
+     */
+    public function weixLogin(array $params)
+    {
+        $data = $this->weixinToken->getSessionKey($params['code']);
+        $weixinopenid = $data['openid'];
+        $weixinunionid = $data['unionid'];
+
+        /** 目前单应用暂时不考虑unionid查询 */
+        $user = $this->userModel->queryByOpenidFind($weixinopenid);
+
+        $result = [
+            'bind_mobile' => false,
+            'weixinunionid' => $weixinunionid,
+            'weixinopenid' => $weixinopenid,
+            'weixinnickname' => $params['nickName'],
+            'weixinface' => $params['avatarUrl'],
+        ];
+
+        if (!isset($user) || empty($user->mobile)){
+            //未注册未绑定手机号码
+            $result['constion_id'] = 0;
+        }elseif (!empty($user->mobile)){
+            //已绑定手机号码
+            $result['bind_mobile'] = true;
+            $result['constion_id'] = $user->constion_id;
+            $result['user_id'] = $user->user_id;
+            $result['token'] = JwtAuth::createToken($user->user_id);
+            $this->userModel->updateUserWeixinInfo($user->user_id,$weixinopenid,$params['nickName'],$params['avatarUrl'],$weixinunionid);
+        }
+
+        return $result;
+    }
 
     /**
      * 微信登陆（获取手机号码暂时不用）

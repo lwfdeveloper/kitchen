@@ -62,6 +62,26 @@ class UserController extends Controller
         return Result(200,'success',$result);
     }
 
+    /**
+     * 微信登陆
+     * @param string $code
+     * @param string $nickName
+     * @param string $avatarUrl
+     * @return mixed
+     */
+    public function weixinLogin()
+    {
+        $params = $this->request->only(['code', 'nickName','avatarUrl']);
+        $rule = [
+            'code' => 'required|string',
+            'nickName' => 'required|string',
+            'avatarUrl' => 'required|string',
+        ];
+        $this->apiCheckParams($params, $rule);
+        $result = $this->memberService->weixLogin($params);
+        return Result(200,'success',$result);
+    }
+
 
     /**
      * 微信用户一键登录(微信获取手机号码，暂时不用)

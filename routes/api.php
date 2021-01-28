@@ -42,10 +42,22 @@ Route::namespace('Api')->prefix('v1')->middleware('apilog')->group(function () {
         Route::post('/get_openid','UserController@getOpenId');
 
         /** 微信小程序一键登录获取手机号码 */
-        Route::post('/weixin_login','UserController@weixLogin');
+        //Route::post('/weixin_login_mobile','UserController@weixLoginNew');
+
+        /** 微信小程序授权登陆 */
+        Route::post('/weixin_login','UserController@weixinLogin');
 
         /** vip卡列表 */
         Route::get('/vip_card_list','UserController@vipCardList')->middleware('api.auth');
+    });
+
+    /** 首页模块相关接口 */
+    Route::group(['prefix' => 'home'],function(){
+        /** 首页轮播图 */
+        Route::get('/get_banner','HomeControoler@getHomeBannerImgList');
+
+        /** 首页符合当前节气内容 */
+        Route::get('/solor_msg','HomeControoler@scrollingMessage');
     });
 
 
